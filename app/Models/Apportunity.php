@@ -14,6 +14,8 @@ class Apportunity extends Model
     protected $casts = [
         'deadline' => 'datetime'
     ];
+
+    protected $guarded = [];
     public function details()
     {
         return $this->hasOne(ApportunityDetails::class);

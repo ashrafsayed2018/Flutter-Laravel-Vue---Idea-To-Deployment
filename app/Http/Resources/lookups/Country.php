@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Lockups;
+namespace App\Http\Resources\lookups;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 

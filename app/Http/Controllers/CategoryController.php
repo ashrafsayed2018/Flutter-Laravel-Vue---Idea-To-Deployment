@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\lookups\CategoryCollection;
-use App\Models\Lookups\Category;
 use Illuminate\Http\Request;
+use App\Models\Lookups\Category;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\lookups\CategoryCollection;
 
 class CategoryController extends Controller
 {
@@ -18,15 +19,6 @@ class CategoryController extends Controller
         return new CategoryCollection(Category::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +28,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate the request
+
+        $validator = Validator::make($request->all(), [
+            'name' => "string|required|max:255"
+        ]);
+
+        if ($validator->fails()) {
+
+            return response(['errors' => $validator->errors()], 422);
+        }
+
+        return Category::create($request->all());
     }
 
     /**
@@ -50,16 +53,6 @@ class CategoryController extends Controller
         return $category;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Lookups\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -70,7 +63,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        // validate the request
+
+        $validator = Validator::make($request->all(), [
+            'name' => "string|required|max:255"
+        ]);
+
+        if ($validator->fails()) {
+
+            return response(['errors' => $validator->errors()], 422);
+        }
+
+
+        $category->update($request->all());
+
+        return $category;
     }
 
     /**
@@ -81,6 +88,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        // $category->delete();
     }
 }

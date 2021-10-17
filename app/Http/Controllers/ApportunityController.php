@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ApportunityStore;
+use App\Http\Resources\Apportunity as ApportunityResources;
 use App\Http\Resources\ApportunityCollection;
 use App\Models\Apportunity;
 use Illuminate\Http\Request;
@@ -19,15 +20,6 @@ class ApportunityController extends Controller
         return new ApportunityCollection(Apportunity::paginate(10));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,14 +29,18 @@ class ApportunityController extends Controller
      */
     public function store(ApportunityStore $request)
     {
-        // valdiate the request from the inputs
 
-        // $request->validate([
-        //     'title' => "required|string|min:3|max:255",
-        //     'description' => "required|string|min:5|max:255"
-        // ]);
+        $apportunity = Apportunity::create([
+            'title'       => $request->title,
+            "description" => $request->description,
+            "country_id"   => $request->countryId,
+            "category_id"  => $request->categoryId,
+            "organizer"   => $request->organizer,
+            "created_by"   => $request->createdBy,
+            "deadline"    => $request->deadline
+        ]);
 
-        // return "testing route";
+        return new ApportunityResources($apportunity);
     }
 
     /**
@@ -55,19 +51,9 @@ class ApportunityController extends Controller
      */
     public function show(Apportunity $apportunity)
     {
-        return $apportunity;
+        return new ApportunityResources($apportunity);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Apportunity  $apportunity
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Apportunity $apportunity)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -76,9 +62,19 @@ class ApportunityController extends Controller
      * @param  \App\Models\Apportunity  $apportunity
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Apportunity $apportunity)
+    public function update(ApportunityStore $request, Apportunity $apportunity)
     {
-        //
+        $apportunity->update([
+            'title'       => $request->title,
+            "description" => $request->description,
+            "country_id"   => $request->countryId,
+            "category_id"  => $request->categoryId,
+            "organizer"   => $request->organizer,
+            "created_by"   => $request->createdBy,
+            "deadline"    => $request->deadline
+        ]);
+
+        return new ApportunityResources($apportunity);
     }
 
     /**

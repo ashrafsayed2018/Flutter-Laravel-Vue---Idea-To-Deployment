@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\Lockups\Category;
-use App\Http\Resources\Lockups\Country;
+use App\Http\Resources\lookups\Category;
+use App\Http\Resources\lookups\Country;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Apportunity extends JsonResource

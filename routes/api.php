@@ -31,7 +31,7 @@ Route::prefix('auth')->group(function () {
 // API Resources
 Route::resource('apportunity', "ApportunityController")->middleware('auth:api');
 
-Route::middleware(['auth:api'])->prefix('lockups')->group(function () {
+Route::middleware(['auth:api'])->prefix('lookups')->group(function () {
     Route::resource('category', "CategoryController");
     Route::resource('country', "CountryController");
 });
