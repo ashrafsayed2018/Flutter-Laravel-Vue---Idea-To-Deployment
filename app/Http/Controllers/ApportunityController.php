@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ApportunityStore;
+use App\Http\Resources\ApportunityCollection;
 use App\Models\Apportunity;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,7 @@ class ApportunityController extends Controller
      */
     public function index()
     {
-        //
+        return new ApportunityCollection(Apportunity::paginate(10));
     }
 
     /**
@@ -33,9 +35,16 @@ class ApportunityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ApportunityStore $request)
     {
-        //
+        // valdiate the request from the inputs
+
+        // $request->validate([
+        //     'title' => "required|string|min:3|max:255",
+        //     'description' => "required|string|min:5|max:255"
+        // ]);
+
+        // return "testing route";
     }
 
     /**
@@ -46,7 +55,7 @@ class ApportunityController extends Controller
      */
     public function show(Apportunity $apportunity)
     {
-        //
+        return $apportunity;
     }
 
     /**
